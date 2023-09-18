@@ -1,4 +1,23 @@
+:root {
+  --Color60: white;
+  --Color30: #f0eeee;
+  --Color10: orange;
+  --ColorFont: black;
+}
+
 .App {
   font-family: sans-serif;
   text-align: center;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+section {
+  min-height: 100vh;
+  padding: 5rem;
+  /* margin-left: 5rem; */
+  /* margin-right: 5rem; */
+  width: 100%;
 }

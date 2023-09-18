@@ -3,7 +3,6 @@ import TimelineItem from "./TimelineItem";
 export default function Timeline() {
   return (
     <>
-      Timeline
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-xl-10 col-12">
