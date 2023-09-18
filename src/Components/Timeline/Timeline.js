@@ -11,7 +11,6 @@ export default function Timeline() {
                 <span className="label">April 2018</span>
               </span>
               <TimelineItem />
-              {/* asasd */}
             </div>
           </div>
         </div>

@@ -4,31 +4,22 @@ export default function PostTL() {
       <h1>Post</h1>
       <form>
         <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label">
+          <label for="postTitle" class="form-label">
             Title
           </label>
-          <input
-            type="email"
-            class="form-control"
-            id="exampleFormControlInput1"
-            placeholder="name@example.com"
-          />
+          <input type="text" class="form-control" id="postTitle" />
         </div>
         <div class="mb-3">
-          <label for="exampleFormControlTextarea1" class="form-label">
+          <label for="postComment" class="form-label">
             Comment
           </label>
-          <textarea
-            class="form-control"
-            id="exampleFormControlTextarea1"
-            rows="3"
-          ></textarea>
+          <textarea class="form-control" id="postComment" rows="3"></textarea>
         </div>
         <div class="mb-3">
-          <label for="formFile" class="form-label">
+          <label for="postAttachment" class="form-label">
             Attachment
           </label>
-          <input class="form-control" type="file" id="formFile" />
+          <input class="form-control" type="file" id="postAttachment" />
         </div>
         <button type="submit" class="btn btn-primary">
           Submit
