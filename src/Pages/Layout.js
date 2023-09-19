@@ -10,7 +10,9 @@ export default function Layout() {
       <div className="container-fluid">
         <div className="row">
           <NavBar />
-          <RoutePages />
+          <section>
+            <RoutePages />
+          </section>
           <Outlet />
         </div>
       </div>
@@ -21,14 +23,12 @@ export default function Layout() {
 function RoutePages() {
   return (
     <>
-      <section>
-        <Routes>
-          <Route path="/" index element={<Home />} />
-          <Route path="/timeline" element={<Timeline />} />
-          <Route path="/PostTL" element={<PostTL />} />
-          <Route path="*" element={<NoPage />} />
-        </Routes>
-      </section>
+      <Routes>
+        <Route path="/" index element={<Home />} />
+        <Route path="/timeline" element={<Timeline />} />
+        <Route path="/PostTL" element={<PostTL />} />
+        <Route path="*" element={<NoPage />} />
+      </Routes>
     </>
   );
 }
