@@ -1,11 +1,20 @@
 import { useState } from "react";
+import Alert from "../Components/Alert/Success";
 
 export default function PostTL() {
   const [Title, setTitle] = useState("");
   const [Comment, setComment] = useState("");
   const [Attachment, setAttachment] = useState("");
   const [UserID, setUserID] = useState(0);
+  const [ErrorMsg, setErrorMsg] = useState("");
+  const [StatusMsg, setStatusMsg] = useState(""); //0=error,1=success
 
+  const ResetMsg = () => {
+    setTimeout(() => {
+      setStatusMsg(-1);
+      setErrorMsg("");
+    }, 5000);
+  };
   const onTitleChange = (e) => {
     setTitle(e.target.value);
   };
@@ -25,9 +34,8 @@ export default function PostTL() {
     // a.title = Title;
     // a.images = [];
     // console.log(JSON.stringify(a));
-    if (UserID.length > 0 && Title.length > 0 && Comment.length > 0) {
-      let url =
-        "https://legendary-garbanzo-7rgg74954pgfp56-3000.app.github.dev/post/add";
+    if (UserID.length > 0 && Title.length > 0) {
+      let url = `${process.env.SERVER_URL}/post/add`;
       await fetch(url, {
         method: "POST",
         mode: "cors",
@@ -42,11 +50,20 @@ export default function PostTL() {
         })
       })
         .then((res) => res.json())
-        .then((res) => console.log(res))
+        .then((res) => {
+          setStatusMsg(1);
+          setErrorMsg("success");
+          console.log(res);
+        })
         .catch((err) => {
+          setStatusMsg(0);
+          setErrorMsg(err);
           console.log(err);
         });
+      ResetMsg();
     } else {
+      setStatusMsg(0);
+      setErrorMsg(`error ${UserID}:${Title}:${Comment}`);
       console.log(`error ${UserID}:${Title}:${Comment}`);
     }
   };
@@ -74,6 +91,7 @@ export default function PostTL() {
               className="form-control"
               id="postTitle"
               onChange={onTitleChange}
+              required
             />
           </div>
           <div className="mb-3">
@@ -102,6 +120,21 @@ export default function PostTL() {
             Submit
           </button>
         </form>
+        {
+          //   StatusMsg === 0 || StatusMsg === 1 ? (
+          //   <div className="mt-3">
+          //     <Alert
+          //       message={ErrorMsg}
+          //       type={StatusMsg === 0 ? "danger" : "success"}
+          //     />
+          //   </div>
+          // ) : (
+          //   ""
+          // )
+          <div>
+            {StatusMsg} {ErrorMsg}
+          </div>
+        }
       </div>
     </>
   );

@@ -79,8 +79,7 @@ export default function TimelineItem() {
     getData();
   }, []);
   async function getData() {
-    let url =
-      "https://legendary-garbanzo-7rgg74954pgfp56-3000.app.github.dev/timeline";
+    let url = `${process.env.SERVER_URL}/timeline`;
     await fetch(url, {
       method: "GET",
       mode: "cors",
@@ -152,7 +151,10 @@ export default function TimelineItem() {
                 </div>
                 {TimelineData.body && (
                   <div className="widget-body">
-                    <p>{TimelineData.body.comment}</p>
+                    <span>{TimelineData.body.title}</span>
+                    {TimelineData.body.comment && (
+                      <p>{TimelineData.body.comment}</p>
+                    )}
                     {TimelineData.body.images && (
                       <div className="postimage">
                         {TimelineData.body.images.map((postimage, index) => {
@@ -210,7 +212,7 @@ export default function TimelineItem() {
                     </div>
                   </div> */}
 
-                  {/* <div className="col-xl-4 col-md-4 col-5 no-padding d-flex justify-content-end">
+                  <div className="col-xl-4 col-md-4 col-5 no-padding d-flex justify-content-end">
                     <div className="meta">
                       <ul>
                         <li>
@@ -231,7 +233,7 @@ export default function TimelineItem() {
                         </li>
                       </ul>
                     </div>
-                  </div> */}
+                  </div>
                 </div>
               </div>
               <div className="time-right">{TimelineData.postdatetime}</div>

@@ -27,6 +27,11 @@ export default function NavBar() {
                 Add to post
               </Link>
             </li>
+            <li>
+              <Link style={{ "--clr": "2" }} to="/Users">
+                Users
+              </Link>
+            </li>
           </ul>
 
           {/* <a
