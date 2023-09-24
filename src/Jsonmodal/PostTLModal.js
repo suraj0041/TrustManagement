@@ -2,8 +2,7 @@ const PostTLModal = {
   userid: "",
   title: "",
   comment: "",
-  images: [],
-  postedtime: ""
+  images: []
 };
 
 export default PostTLModal;

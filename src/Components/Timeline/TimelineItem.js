@@ -1,76 +1,104 @@
+import { useEffect, useState } from "react";
+
 export default function TimelineItem() {
-  const TimelineDatas = [
-    {
-      profileimage: "./images/avatar_f1.png",
-      username: "Nathan Hunter",
-      body: {
-        Comment:
-          "Nullam aliquam felis ut elit rutrum mattis. Curabitur arcu eros,imperdiet id gravida sit amet, pulvinar non ex. Cras ac ligula    eget sapien suscipit luctus non a risus. Curabitur iaculis consectetur enim vel dignissim. Ut ac mi dolor. Pellentesque habitant morbi tristique senectus et netus etb malesuada fames ac    turpis egestas. Integer lobortis justo erat, ac faucibus risus    laoreet semper. Aenean et sollicitudin ante, vel finibus velit.   Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        images: [
-          "./images/avatar_m1.png",
-          "./images/avatar_f2.png",
-          "./images/avatar_m2.png",
-          "./images/avatar_f1.png"
-        ]
-      },
-      postedtime: "Mon Sep 18 2023 15:01:57 GMT+0530 (India Standard Time)",
-      commentcount: 10,
-      likecount: 10
-    },
-    {
-      profileimage: "./images/avatar_m1.png",
-      username: "Nathan Hunter",
-      body: "",
-      postedtime: "Mon Sep 18 2023 15:01:57 GMT+0530 (India Standard Time)",
-      commentcount: 10,
-      likecount: 10
-    },
-    {
-      profileimage: "./images/avatar_m2.png",
-      username: "Nathan Hunter",
-      body: {
-        Comment:
-          "Nullam aliquam felis ut elit rutrum mattis. Curabitur arcu eros,imperdiet id gravida sit amet, pulvinar non ex. Cras ac ligula    eget sapien suscipit luctus non a risus. Curabitur iaculis consectetur enim vel dignissim. Ut ac mi dolor. Pellentesque habitant morbi tristique senectus et netus etb malesuada fames ac    turpis egestas. Integer lobortis justo erat, ac faucibus risus    laoreet semper. Aenean et sollicitudin ante, vel finibus velit.   Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        images: [
-          "./images/avatar_m1.png",
-          "./images/avatar_f2.png",
-          "./images/avatar_m2.png",
-          "./images/avatar_f1.png",
-          "./images/avatar_m1.png",
-          "./images/avatar_f2.png",
-          "./images/avatar_m2.png",
-          "./images/avatar_f1.png"
-        ]
-      },
-      postdatetime: "Mon Sep 18 2023 15:01:57 GMT+0530 (India Standard Time)",
-      commentcount: 10,
-      likecount: 10
-    },
-    {
-      profileimage: "./images/avatar_f2.png",
-      username: "Nathan Hunter",
-      body: "",
-      postedtime: "Mon Sep 18 2023 15:01:57 GMT+0530 (India Standard Time)",
-      commentcount: 10,
-      likecount: 10
-    },
-    {
-      profileimage: "./images/avatar_f2.png",
-      username: "Nathan Hunter",
-      body: "",
-      postedtime: "Mon Sep 18 2023 15:01:57 GMT+0530 (India Standard Time)",
-      commentcount: 10,
-      likecount: 10
-    },
-    {
-      profileimage: "./images/avatar_f2.png",
-      username: "Nathan Hunter",
-      body: "",
-      postedtime: "Mon Sep 18 2023 15:01:57 GMT+0530 (India Standard Time)",
-      commentcount: 10,
-      likecount: 10
-    }
-  ];
+  const [TimelineDatas, setTimelineDatas] = useState([]);
+  // [
+  //   {
+  //     profileimage: "./images/avatar_f1.png",
+  //     username: "Nathan Hunter",
+  //     body: {
+  //       Comment:
+  //         "Nullam aliquam felis ut elit rutrum mattis. Curabitur arcu eros,imperdiet id gravida sit amet, pulvinar non ex. Cras ac ligula    eget sapien suscipit luctus non a risus. Curabitur iaculis consectetur enim vel dignissim. Ut ac mi dolor. Pellentesque habitant morbi tristique senectus et netus etb malesuada fames ac    turpis egestas. Integer lobortis justo erat, ac faucibus risus    laoreet semper. Aenean et sollicitudin ante, vel finibus velit.   Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  //       images: [
+  //         "./images/avatar_m1.png",
+  //         "./images/avatar_f2.png",
+  //         "./images/avatar_m2.png",
+  //         "./images/avatar_f1.png"
+  //       ]
+  //     },
+  //     postedtime: "Mon Sep 18 2023 15:01:57 GMT+0530 (India Standard Time)",
+  //     commentcount: 10,
+  //     likecount: 10
+  //   },
+  //   {
+  //     profileimage: "./images/avatar_m1.png",
+  //     username: "Nathan Hunter",
+  //     body: "",
+  //     postedtime: "Mon Sep 18 2023 15:01:57 GMT+0530 (India Standard Time)",
+  //     commentcount: 10,
+  //     likecount: 10
+  //   },
+  //   {
+  //     profileimage: "./images/avatar_m2.png",
+  //     username: "Nathan Hunter",
+  //     body: {
+  //       Comment:
+  //         "Nullam aliquam felis ut elit rutrum mattis. Curabitur arcu eros,imperdiet id gravida sit amet, pulvinar non ex. Cras ac ligula    eget sapien suscipit luctus non a risus. Curabitur iaculis consectetur enim vel dignissim. Ut ac mi dolor. Pellentesque habitant morbi tristique senectus et netus etb malesuada fames ac    turpis egestas. Integer lobortis justo erat, ac faucibus risus    laoreet semper. Aenean et sollicitudin ante, vel finibus velit.   Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  //       images: [
+  //         "./images/avatar_m1.png",
+  //         "./images/avatar_f2.png",
+  //         "./images/avatar_m2.png",
+  //         "./images/avatar_f1.png",
+  //         "./images/avatar_m1.png",
+  //         "./images/avatar_f2.png",
+  //         "./images/avatar_m2.png",
+  //         "./images/avatar_f1.png"
+  //       ]
+  //     },
+  //     postdatetime: "Mon Sep 18 2023 15:01:57 GMT+0530 (India Standard Time)",
+  //     commentcount: 10,
+  //     likecount: 10
+  //   },
+  //   {
+  //     profileimage: "./images/avatar_f2.png",
+  //     username: "Nathan Hunter",
+  //     body: "",
+  //     postedtime: "Mon Sep 18 2023 15:01:57 GMT+0530 (India Standard Time)",
+  //     commentcount: 10,
+  //     likecount: 10
+  //   },
+  //   {
+  //     profileimage: "./images/avatar_f2.png",
+  //     username: "Nathan Hunter",
+  //     body: "",
+  //     postedtime: "Mon Sep 18 2023 15:01:57 GMT+0530 (India Standard Time)",
+  //     commentcount: 10,
+  //     likecount: 10
+  //   },
+  //   {
+  //     profileimage: "./images/avatar_f2.png",
+  //     username: "Nathan Hunter",
+  //     body: "",
+  //     postedtime: "Mon Sep 18 2023 15:01:57 GMT+0530 (India Standard Time)",
+  //     commentcount: 10,
+  //     likecount: 10
+  //   }
+  // ]);
+
+  useEffect(() => {
+    getData();
+  }, []);
+  async function getData() {
+    let url =
+      "https://legendary-garbanzo-7rgg74954pgfp56-3000.app.github.dev/timeline";
+    await fetch(url, {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setTimelineDatas(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    console.log("getData");
+  }
+
   return (
     <>
       {TimelineDatas.map((TimelineData, index) => {
@@ -124,7 +152,7 @@ export default function TimelineItem() {
                 </div>
                 {TimelineData.body && (
                   <div className="widget-body">
-                    <p>{TimelineData.body.Comment}</p>
+                    <p>{TimelineData.body.comment}</p>
                     {TimelineData.body.images && (
                       <div className="postimage">
                         {TimelineData.body.images.map((postimage, index) => {

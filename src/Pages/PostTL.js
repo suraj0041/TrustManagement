@@ -1,29 +1,59 @@
 import { useState } from "react";
-import PostTLModal from "../Jsonmodal/PostTLModal";
 
 export default function PostTL() {
   const [Title, setTitle] = useState("");
   const [Comment, setComment] = useState("");
   const [Attachment, setAttachment] = useState("");
+  const [UserID, setUserID] = useState(0);
 
   const onTitleChange = (e) => {
     setTitle(e.target.value);
   };
   const onCommentChange = (e) => {
-    setTitle(e.target.value);
+    console.log(e.target.value);
+    setComment(e.target.value);
   };
   const onAttachmentChange = (e) => {
-    setTitle(e.target.value);
+    setAttachment(e.target.value);
   };
-  const onFormSubmit = (e) => {
+  const onFormSubmit = async (e) => {
     e.preventDefault();
 
-    let a = PostTLModal;
-    a.userid = 1;
-    a.comment = Comment;
-    a.postedtime = Date().toString();
-    a.title = Title;
-    console.log(a);
+    // let a = PostTLModal;
+    // a.userid = UserID;
+    // a.comment = Comment;
+    // a.title = Title;
+    // a.images = [];
+    // console.log(JSON.stringify(a));
+    if (UserID.length > 0 && Title.length > 0 && Comment.length > 0) {
+      let url =
+        "https://legendary-garbanzo-7rgg74954pgfp56-3000.app.github.dev/post/add";
+      await fetch(url, {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          userid: UserID,
+          title: Title,
+          comment: Comment,
+          images: []
+        })
+      })
+        .then((res) => res.json())
+        .then((res) => console.log(res))
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      console.log(`error ${UserID}:${Title}:${Comment}`);
+    }
+  };
+
+  const OnChangeUID = (e) => {
+    setUserID(e.target.value);
+    console.log(e.target.value);
   };
 
   return (
@@ -31,6 +61,10 @@ export default function PostTL() {
       <div className="PostTL">
         <h1>Post</h1>
         <form onSubmit={onFormSubmit}>
+          <select onChange={OnChangeUID}>
+            <option value="UID_1695399944788">UID_1695399944788</option>
+            <option value="UID_1695399988374">UID_1695399988374</option>
+          </select>
           <div className="mb-3">
             <label htmlFor="postTitle" className="form-label">
               Title
