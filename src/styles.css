@@ -15,20 +15,24 @@ a {
 }
 
 section {
-  min-height: 100vh;
   padding: 5rem;
   /* margin-left: 5rem; */
   /* margin-right: 5rem; */
-  width: 100%;
 }
 
 /* Pages start */
 
 /* Page PostTL start */
 .PostTL {
-  width: 50em;
+  width: 60em;
   margin: auto;
 }
 /* Page PostTL End */
 
 /* Pages End */
+
+/* Users Start */
+.Users {
+  width: 60em;
+  margin: auto;
+}

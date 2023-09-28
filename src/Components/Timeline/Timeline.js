@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./Timeline.css";
 import TimelineItem from "./TimelineItem";
 export default function Timeline() {
