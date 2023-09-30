@@ -1,13 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
+import { useFetch } from "../Hooks/UseFetch";
 
 export default function Users() {
+  let FOptions = {
+    method: "GET",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
+  const [fetchOption, SetFetchOption] = useState(FOptions);
+  const [url, setUrl] = useState(`${process.env.SERVER_URL}/users`);
+  const { data, isPending, error, fetchData } = useFetch(url, fetchOption);
   const [userData, setUserdata] = useState([]);
   const [showEdit, setshowEdit] = useState(false);
-  const ExpandedComponent = ({ data }) => (
-    <pre>{JSON.stringify(data, null, 2)}</pre>
+
+  const ExpandedComponent = ({ data1 }) => (
+    <pre>{JSON.stringify(data1, null, 2)}</pre>
   );
-  let data = [
+  let data1 = [
     {
       id: "1",
       name: "suraj",
@@ -119,6 +131,15 @@ export default function Users() {
     alert(e.target.value);
     setshowEdit(true);
   };
+  const OnDelete = (e) => {
+    alert(e.target.value);
+    // setshowEdit(false);
+    // setUrl(`${process.env.SERVER_URL}/delete`);
+    // FOptions.method = "POST";
+    // FOptions.body = JSON.parse({ id: e.target.value });
+    // SetFetchOption(FOptions);
+    // fetchData();
+  };
   const columns = [
     {
       name: "id",
@@ -153,12 +174,15 @@ export default function Users() {
     {
       name: "Delete",
       button: true,
-      cell: () => <button className="btn btn-primary">Delete</button>
+      cell: (row) => (
+        <button className="btn btn-primary" onClick={OnDelete} value={row.id}>
+          Delete
+        </button>
+      )
     }
   ];
 
   const GetUsers = async () => {
-    let url = `${process.env.SERVER_URL}/users`;
     // await fetch(url, {
     //   method: "GET",
     //   mode: "cors",
@@ -172,26 +196,25 @@ export default function Users() {
     //     setUserdata(data);
     //   })
     //   .catch((err) => {
-    setUserdata(data);
+    // console.log(isPending);
+    if (!FisPending) {
+      setUserdata(Fdata);
+    }
     //     console.log(err);
     //   });
   };
-  useState(() => {
-    GetUsers();
-  }, []);
 
   return (
     <>
       <div className="Users">
-        {userData.length > 0 ? (
+        {/* {JSON.stringify(data)} */}
+        {data && (
           <DataTable
             columns={columns}
-            data={userData}
+            data={data}
             expandableRowsComponent={ExpandedComponent}
             pagination
           />
-        ) : (
-          <div>No Data.......</div>
         )}
         {showEdit && <div>Edit</div>}
       </div>
