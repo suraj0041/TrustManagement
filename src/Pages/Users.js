@@ -11,15 +11,12 @@ export default function Users() {
     },
   };
   const [fetchOption, SetFetchOption] = useState(FOptions);
-  const [url, setUrl] = useState(`${process.env.SERVER_URL}/users`);
+  const [url, setUrl] = useState(`${process.env.REACT_APP_SERVER_URL}/users`);
   const { data, isPending, error, fetchData } = useFetch(url, fetchOption);
   const [CUrrentuserData, setCUrrentuserData] = useState([]);
   const [showAddEditWindow, setshowAddEditWindow] = useState(false);
   const [ShowbtnAdd, setShowbtnAdd] = useState(true);
-
-  const ExpandedComponent = ({ data1 }) => (
-    <pre>{JSON.stringify(data1, null, 2)}</pre>
-  );
+const[checkAddUser, setcheckAddUser] = useState(false);
   let data1 = [
     {
       id: "1",
@@ -127,12 +124,16 @@ export default function Users() {
       isActive: "true",
     },
   ];
-
+  const ExpandedComponent = ({ data1 }) => (
+    <pre>{JSON.stringify(data1, null, 2)}</pre>
+  );
   const OnEdit = (e) => {
     setshowAddEditWindow(true);
     let crrdata = data.filter((x) => x.id === e.target.value)[0];
     setCUrrentuserData(crrdata);
     setShowbtnAdd(false);
+    setcheckAddUser(false);
+
   };
   const OnDelete = (e) => {
     alert(e.target.value);
@@ -190,39 +191,47 @@ export default function Users() {
     },
   ];
 
-  const GetUsers = async () => {
-    // await fetch(url, {
-    //   method: "GET",
-    //   mode: "cors",
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   }
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(JSON.stringify(data));
-    //     setUserdata(data);
-    //   })
-    //   .catch((err) => {
-    // console.log(isPending);
-    if (!FisPending) {
-      setUserdata(Fdata);
-    }
-    //     console.log(err);
-    //   });
-  };
   const onFormSubmit = async (e) => {
     e.preventDefault();
+    debugger;
+  //use the useFetch hook to  post data to server
+    let urlPost = '';
+    if(checkAddUser){
+      urlPost = `${process.env.REACT_APP_SERVER_URL}/users/add`;
+      CUrrentuserData.id='-1';
+    }
+      else
+      {
+        urlPost = `${process.env.REACT_APP_SERVER_URL}/users/edit`;
+      }
+    setUrl(urlPost);
+    FOptions.method="POST";
+    FOptions.body = JSON.stringify(CUrrentuserData); //CUrrentuserData;
+    SetFetchOption(FOptions);
+
+
   };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setCUrrentuserData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
   const OnAdd = async (e) => {
     setshowAddEditWindow(true);
     setCUrrentuserData({});
     setShowbtnAdd(false);
+    setcheckAddUser(true);
   };
   const OnCancel = async (e) => {
     setshowAddEditWindow(false);
     setCUrrentuserData({});
     setShowbtnAdd(true);
+    setcheckAddUser(false);
+
   };
   return (
     <>
@@ -258,6 +267,9 @@ export default function Users() {
                   id="username"
                   value={CUrrentuserData.name}
                   required
+                  name="name"
+                  onChange={handleChange}
+
                 />
               </div>
               <div className="col-md-6">
@@ -269,6 +281,8 @@ export default function Users() {
                   className="form-control"
                   id="age"
                   value={CUrrentuserData.age}
+                  onChange={handleChange}
+                  name="age"
                 />
               </div>
               <div className="col-md-6">
@@ -281,6 +295,8 @@ export default function Users() {
                   id="inputEmail4"
                   required
                   value={CUrrentuserData.emailid}
+                  onChange={handleChange}
+                  name="emailid"
                 />
               </div>
               <div className="col-md-6">
@@ -293,14 +309,16 @@ export default function Users() {
                   id="inputPassword4"
                   required
                   value={CUrrentuserData.password}
+                  onChange={handleChange}
+                  name="password"
                 />
               </div>
               <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button class="btn btn-primary" type="submit">
+                <button className="btn btn-primary" type="submit">
                   Done
                 </button>
                 <input
-                  class="btn btn-primary"
+                  className="btn btn-primary"
                   type="button"
                   value="Cancel"
                   onClick={OnCancel}

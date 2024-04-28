@@ -35,7 +35,7 @@ export default function PostTL() {
     // a.images = [];
     // console.log(JSON.stringify(a));
     if (UserID.length > 0 && Title.length > 0) {
-      let url = `${process.env.SERVER_URL}/post/add`;
+      let url = `${process.env.REACT_APP_SERVER_URL}/post/add`;
       await fetch(url, {
         method: "POST",
         mode: "cors",

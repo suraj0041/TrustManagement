@@ -79,7 +79,7 @@ export default function TimelineItem() {
     getData();
   }, []);
   async function getData() {
-    let url = `${process.env.SERVER_URL}/timeline`;
+    let url = `${process.env.REACT_APP_SERVER_URL}/timeline`;
     await fetch(url, {
       method: "GET",
       mode: "cors",
